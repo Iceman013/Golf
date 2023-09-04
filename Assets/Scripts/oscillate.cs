@@ -8,17 +8,18 @@ public class oscillate : MonoBehaviour
     public float midpoint = 0f;
     public string direction = "x";
     public int speed = 2;
+    public float offsetSeconds = 0f;
 
     void Update()
     {
         float min = midpoint - length/2;
         if (direction == "x") { 
             Vector3 pos = transform.position;
-            pos.x = Mathf.PingPong(Time.time*speed, length) + min;
+            pos.x = Mathf.PingPong((Time.time + offsetSeconds)*speed, length) + min;
             transform.position = pos;
         } else {
             Vector3 pos = transform.position;
-            pos.z = Mathf.PingPong(Time.time*speed, length) + min;
+            pos.z = Mathf.PingPong((Time.time + offsetSeconds)*speed, length) + min;
             transform.position = pos;
         }
     }
