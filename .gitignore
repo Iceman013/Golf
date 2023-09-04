@@ -1,0 +1,12 @@
+.vs
+Build
+Library
+Logs
+MonoBleedingEdge
+SOLIDWORKS
+Temp
+TryAtGolf_Data
+UserSettings
+*.zip
+*.exe
+UnityPlayer.dll
