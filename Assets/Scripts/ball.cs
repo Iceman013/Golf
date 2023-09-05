@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class ball : MonoBehaviour {
     // Physics
-    private float strength = 5;
-    private double strengthScale = 3;
+    private float strength = 40;
     private double minVelocity = 1;
+    private double maxForce = 1000;
     // Behavior
     private bool dragging = false;
     private Vector3 dragStart;
@@ -24,30 +24,10 @@ public class ball : MonoBehaviour {
     void Update() {
         // Process a mouse button click.
         if (Input.GetMouseButtonDown(0)) {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit)) {
-                if (hit.collider == gameObject.GetComponent<Collider>()) {
-                    dragging = true;
-                    dragStart = hit.point;
-                }
-            }
+            beginDragging();
         }
-        if (Input.GetMouseButtonUp(0) && dragging) {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit)) {
-                dragging = false;
-                Vector3 dragEnd = hit.point;
-                Debug.Log(getStrength(dragStart.x, dragEnd.x));
-                rb.AddForce(new Vector3(
-                    getStrength(dragStart.x, dragEnd.x),
-                    0,
-                    getStrength(dragStart.z, dragEnd.z)
-                ));
-            }
+        if (dragging && Input.GetMouseButtonUp(0)) {
+            endDragging();
         }
         if (Input.GetKeyDown("space")) {
             Debug.Log("SPACE BAR");
@@ -58,28 +38,59 @@ public class ball : MonoBehaviour {
             rb.velocity = new Vector3(0, 0, 0);
             //Debug.Log("stopped");
         } else {
-            Debug.Log(Math.Pow((double)rb.velocity.x, 2) + Math.Pow((double)rb.velocity.y, 2) + Math.Pow((double)rb.velocity.z, 2));
+            //Debug.Log(Math.Pow((double)rb.velocity.x, 2) + Math.Pow((double)rb.velocity.y, 2) + Math.Pow((double)rb.velocity.z, 2));
         }
+    }
+
+    private void beginDragging() {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit)) {
+            if (hit.collider == gameObject.GetComponent<Collider>()) {
+                dragging = true;
+                dragStart = hit.point;
+            }
+        }
+    }
+
+    private void endDragging() {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        double yComponent = (double)Vector3.Angle(ray.direction, Vector3.up);
+        if (yComponent <= 90) {
+            dragging = false;
+            return;
+        }
+        Vector3 camPos = Camera.main.transform.position;
+        Vector3 ballPos = transform.position;
+        double xComponent = (double)Vector3.Angle(ray.direction, Vector3.right);
+        double zComponent = (double)Vector3.Angle(ray.direction, Vector3.forward);
+
+        double magnitude = (double)(camPos.y - ballPos.y)*Math.Tan((180 - yComponent)*(Math.PI/180));
+
+        double xPoint = (double)camPos.x + magnitude*Math.Cos(xComponent*(Math.PI/180));
+        double yPoint = (double)ballPos.y;
+        double zPoint = (double)camPos.z + magnitude*Math.Cos(zComponent*(Math.PI/180));
+        Vector3 dragEnd = new Vector3((float)xPoint, (float)yPoint, (float)zPoint);
+        dragging = false;
+        Vector3 force = new Vector3(
+            getStrength(dragStart.x, dragEnd.x),
+            0,
+            getStrength(dragStart.z, dragEnd.z)
+        );
+        double totalStrength = Math.Sqrt(Math.Pow((double)force.x, 2) + Math.Pow((double)force.z, 2));
+        if (totalStrength >= maxForce) {
+            force.x = (float)(maxForce/totalStrength)*force.x;
+            force.z = (float)(maxForce/totalStrength)*force.z;
+        }
+        rb.AddForce(force);
     }
 
     private float getStrength(float start, float end) {
-        float magnitude;
-        if (start > end) {
-            magnitude = 1;
-        } else if (start < end) {
-            magnitude = -1;
-        } else {
-            return 0;
-        }
-        float distance = magnitude*(start - end);
-        float scaled = strength*(float)Math.Pow((double)distance, strengthScale);
-        if (scaled > 5000) {
-            scaled = 5000;
-        }
-        return magnitude*scaled;
+        return strength*(start - end);
     }
 
     void OnCollisionEnter(Collision collision) {
-        Debug.Log("Ouch");
+        //Debug.Log("Ouch");
     }
 }
