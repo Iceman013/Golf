@@ -30,16 +30,16 @@ public class Conveyor : MonoBehaviour
     void Update() {
         if (go) {
             if (dir == "x") {
-                rb.velocity = rb.velocity + new Vector3(strenth, 0, 0);
+                rb.velocity = rb.velocity + new Vector3(strength, 0, 0);
                 //ball.transform.position = ball.transform.position + new Vector3(strenth, 0, 0);
             } else if (dir == "-x") {
-                rb.velocity = rb.velocity - new Vector3(strenth, 0, 0);
+                rb.velocity = rb.velocity - new Vector3(strength, 0, 0);
                 //ball.transform.position = ball.transform.position - new Vector3(strenth, 0, 0);
             } else if (dir == "z") {
-                rb.velocity = rb.velocity + new Vector3(0, 0, strenth);
+                rb.velocity = rb.velocity + new Vector3(0, 0, strength);
                 //ball.transform.position = ball.transform.position + new Vector3(0, 0, strenth);
             } else if (dir == "-z") {
-                rb.velocity = rb.velocity - new Vector3(0, 0, strenth);
+                rb.velocity = rb.velocity - new Vector3(0, 0, strength);
                 //ball.transform.position = ball.transform.position - new Vector3(0, 0, strenth);
             }
         }
