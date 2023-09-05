@@ -3811,7 +3811,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
       propertyPath: m_Drag
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
       propertyPath: m_Mass
@@ -3819,6 +3819,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
       propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
+      propertyPath: m_AngularDrag
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
