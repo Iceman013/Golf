@@ -8,6 +8,7 @@ public class ball : MonoBehaviour {
     // Physics
     private float strength = 5;
     private double strengthScale = 3;
+    private double minVelocity = 1;
     // Behavior
     private bool dragging = false;
     private Vector3 dragStart;
@@ -51,6 +52,13 @@ public class ball : MonoBehaviour {
         if (Input.GetKeyDown("space")) {
             Debug.Log("SPACE BAR");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (Math.Pow((double)rb.velocity.x, 2) + Math.Pow((double)rb.velocity.y, 2) + Math.Pow((double)rb.velocity.z, 2) < Math.Pow(minVelocity, 2)) {
+            rb.velocity = new Vector3(0, 0, 0);
+            //Debug.Log("stopped");
+        } else {
+            Debug.Log(Math.Pow((double)rb.velocity.x, 2) + Math.Pow((double)rb.velocity.y, 2) + Math.Pow((double)rb.velocity.z, 2));
         }
     }
 

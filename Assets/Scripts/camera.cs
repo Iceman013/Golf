@@ -65,7 +65,7 @@ public class camera : MonoBehaviour {
 		    float rotateVertical = Input.GetAxis("Mouse Y");
             transform.RotateAround(GameObject.FindGameObjectWithTag("Ball").transform.position, -Vector3.up, rotateHorizontal * sensitivity);
 	    	transform.RotateAround(GameObject.FindGameObjectWithTag("Ball").transform.position, transform.right, rotateVertical * sensitivity);
-            if (transform.position.y <= 0 || transform.localEulerAngles.z >= 90) {
+            if (transform.localEulerAngles.x <= 10 || transform.localEulerAngles.x >= 60) {
                 transform.RotateAround(GameObject.FindGameObjectWithTag("Ball").transform.position, transform.right, -rotateVertical * sensitivity);
             }
             updateRelativePosition();
