@@ -3810,16 +3810,40 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
+      propertyPath: m_Drag
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
+      propertyPath: m_Mass
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
       propertyPath: m_UseGravity
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880589488475079520, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1880589488475079530, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 1880589488475079531, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880589488475079531, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
       propertyPath: m_Center.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880589488475079532, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1880589488475079534, guid: 3f9784712110abd4dace7a12039e5ca2, type: 3}
       propertyPath: m_RootOrder

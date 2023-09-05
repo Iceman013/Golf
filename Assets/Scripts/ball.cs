@@ -11,6 +11,7 @@ public class ball : MonoBehaviour {
     private double maxForce = 1000;
     // Behavior
     private bool dragging = false;
+    private bool stopped = false;
     private Vector3 dragStart;
     // This
     public Rigidbody rb;
