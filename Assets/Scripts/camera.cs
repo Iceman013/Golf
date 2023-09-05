@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class camera : MonoBehaviour {
     // Control Sensativity
-    private float sensitivity = 5;
+    private float sensitivity = 3;
     private double zoom = 0.8;
     // Measurements
     private bool rightMouse = false;
@@ -65,7 +65,7 @@ public class camera : MonoBehaviour {
 		    float rotateVertical = Input.GetAxis("Mouse Y");
             transform.RotateAround(GameObject.FindGameObjectWithTag("Ball").transform.position, -Vector3.up, rotateHorizontal * sensitivity);
 	    	transform.RotateAround(GameObject.FindGameObjectWithTag("Ball").transform.position, transform.right, rotateVertical * sensitivity);
-            if (transform.localEulerAngles.x <= 10 || transform.localEulerAngles.x >= 60) {
+            if (transform.localEulerAngles.x <= 30 || transform.localEulerAngles.x >= 60) {
                 transform.RotateAround(GameObject.FindGameObjectWithTag("Ball").transform.position, transform.right, -rotateVertical * sensitivity);
             }
             updateRelativePosition();

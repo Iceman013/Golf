@@ -43,27 +43,25 @@ public class ball : MonoBehaviour {
     }
 
     private void beginDragging() {
+        rb.velocity = new Vector3(0, 0, 0);
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit)) {
             if (hit.collider == gameObject.GetComponent<Collider>()) {
                 dragging = true;
-                dragStart = hit.point;
+                dragStart = pointAtBallHeight();
             }
         }
     }
 
-    private void endDragging() {
+    private Vector3 pointAtBallHeight() {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        double yComponent = (double)Vector3.Angle(ray.direction, Vector3.up);
-        if (yComponent <= 90) {
-            dragging = false;
-            return;
-        }
-        Vector3 camPos = Camera.main.transform.position;
+        Vector3 camPos = ray.origin;
         Vector3 ballPos = transform.position;
+
         double xComponent = (double)Vector3.Angle(ray.direction, Vector3.right);
+        double yComponent = (double)Vector3.Angle(ray.direction, Vector3.up);
         double zComponent = (double)Vector3.Angle(ray.direction, Vector3.forward);
 
         double magnitude = (double)(camPos.y - ballPos.y)*Math.Tan((180 - yComponent)*(Math.PI/180));
@@ -71,7 +69,13 @@ public class ball : MonoBehaviour {
         double xPoint = (double)camPos.x + magnitude*Math.Cos(xComponent*(Math.PI/180));
         double yPoint = (double)ballPos.y;
         double zPoint = (double)camPos.z + magnitude*Math.Cos(zComponent*(Math.PI/180));
-        Vector3 dragEnd = new Vector3((float)xPoint, (float)yPoint, (float)zPoint);
+        Vector3 output = new Vector3((float)xPoint, (float)yPoint, (float)zPoint);
+
+        return output;
+    }
+
+    private void endDragging() {
+        Vector3 dragEnd = pointAtBallHeight();
         dragging = false;
         Vector3 force = new Vector3(
             getStrength(dragStart.x, dragEnd.x),
