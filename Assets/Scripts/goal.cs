@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class goal : MonoBehaviour
 {
     string[] lvls = {
-        "SampleScene", "Stage_02"
+        "SampleScene", "Stage_02", "Stage_03"
     };
 
     void OnCollisionEnter() {
